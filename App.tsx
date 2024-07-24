@@ -5,6 +5,7 @@
  * @format
  */
 
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -24,6 +25,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import OTPScreen from './OTPVerify';
+import PhoneNumberScreen from './PhoneNumberScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -54,6 +59,8 @@ function Section({children, title}: SectionProps): React.JSX.Element {
     </View>
   );
 }
+const Stack = createNativeStackNavigator();
+
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,7 +70,9 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <NavigationContainer>
+
+    {/* <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -92,7 +101,14 @@ function App(): React.JSX.Element {
           <LearnMoreLinks />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView> */}
+      <Stack.Navigator initialRouteName="PhoneNumberScreen">
+        <Stack.Screen name="PhoneNumberScreen" component={PhoneNumberScreen} />
+        <Stack.Screen name="OTPScreen" component={OTPScreen} />
+      </Stack.Navigator>
+
+    </NavigationContainer>
+    
   );
 }
 
